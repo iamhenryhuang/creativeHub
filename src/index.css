@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background: #F7F7FA;
+  color: #222;
+  min-height: 100vh;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -80px;
+  left: -80px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle at 60% 40%, #FF6B6B 0%, #F7F7FA 80%);
+  opacity: 0.13;
+  border-radius: 50%;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle at 40% 60%, #1A223E 0%, #F7F7FA 80%);
+  opacity: 0.10;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.btn {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+  box-shadow: 0 2px 8px rgba(26,34,62,0.07);
+}
+
+.btn-primary {
+  background: #1A223E;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(26,34,62,0.10);
+}
+.btn-primary:hover {
+  background: #FF6B6B;
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(255,107,107,0.13);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #1A223E;
+  border: 1.5px solid #FF6B6B;
+}
+.btn-secondary:hover {
+  background: #FF6B6B;
+  color: #fff;
+  border-color: #1A223E;
+}
+
+.input, .textarea {
+  padding: 13px 14px;
+  border: 1.5px solid #E0E3EA;
+  border-radius: 7px;
+  font-size: 1rem;
+  width: 100%;
+  font-family: inherit;
+  background: #F7F7FA;
+  transition: border-color 0.18s, background 0.18s;
+  margin-bottom: 0.5rem;
+}
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: #FF6B6B;
+  background: #fff;
+}
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+} 

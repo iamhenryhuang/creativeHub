@@ -1,0 +1,348 @@
+/* === CreativeHub - 探索側邊欄 === */
+.creative-explore-bar {
+  width: 280px;
+  min-width: 260px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-right: 1px solid rgba(103, 126, 234, 0.08);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  font-family: 'Inter', 'Poppins', 'Segoe UI', 'Noto Sans TC', sans-serif;
+  position: sticky;
+  top: 80px;
+}
+
+.creative-explore-bar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.creative-explore-bar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.creative-explore-bar::-webkit-scrollbar-thumb {
+  background: rgba(103, 126, 234, 0.2);
+  border-radius: 4px;
+}
+
+.creative-explore-bar::-webkit-scrollbar-thumb:hover {
+  background: rgba(103, 126, 234, 0.3);
+}
+
+/* 用戶區域 */
+.creative-user-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(103, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(103, 126, 234, 0.1);
+}
+
+.creative-user-avatar {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(103, 126, 234, 0.2);
+}
+
+.creative-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.creative-status-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background: #10b981;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.creative-user-info h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.creative-user-info p {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* 快速動作 */
+.creative-quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.creative-action-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.creative-action-item.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 16px rgba(103, 126, 234, 0.2);
+}
+
+.creative-action-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(103, 126, 234, 0.15);
+}
+
+.creative-action-item.primary:hover {
+  box-shadow: 0 6px 20px rgba(103, 126, 234, 0.3);
+}
+
+/* 區塊設計 */
+.creative-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.creative-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.creative-section-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.creative-section-header svg {
+  color: #6b7280;
+  transition: transform 0.2s ease;
+}
+
+.creative-section-header svg.expanded {
+  transform: rotate(180deg);
+}
+
+/* 創意分類 */
+.creative-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.creative-category-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.creative-category-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--category-color);
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+}
+
+.creative-category-item:hover::before,
+.creative-category-item.active::before {
+  transform: scaleY(1);
+}
+
+.creative-category-item:hover {
+  background: #f8fafc;
+  border-color: var(--category-color);
+  transform: translateX(4px);
+}
+
+.creative-category-item.active {
+  background: rgba(103, 126, 234, 0.05);
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.creative-category-icon {
+  font-size: 1.2rem;
+  width: 28px;
+  text-align: center;
+}
+
+.creative-category-name {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.creative-category-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--category-color);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s ease;
+}
+
+.creative-category-item.active .creative-category-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 技能標籤 */
+.creative-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.creative-skill-tag {
+  padding: 0.4rem 0.75rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-family: inherit;
+}
+
+.creative-skill-tag:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(103, 126, 234, 0.25);
+}
+
+/* 趨勢標籤 */
+.creative-trends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.creative-trend-tag {
+  padding: 0.4rem 0.75rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(103, 126, 234, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.creative-trend-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(103, 126, 234, 0.3);
+}
+
+/* 統計數據 */
+.creative-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.creative-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.creative-stat-item:hover {
+  box-shadow: 0 4px 12px rgba(103, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.creative-stat-icon {
+  width: 32px;
+  height: 32px;
+  background: #f8fafc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.creative-stat-number {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1;
+}
+
+.creative-stat-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.125rem;
+}
+
+/* 響應式設計 */
+@media (max-width: 1024px) {
+  .creative-explore-bar {
+    width: 240px;
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .creative-explore-bar {
+    display: none;
+  }
+} 

@@ -1,0 +1,10 @@
+# 常見忽略設定
+node_modules/
+.env
+.vscode/
+dist/
+*.log
+__pycache__/
+*.pyc
+*.zip
+*.mp4
