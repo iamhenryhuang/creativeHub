@@ -299,10 +299,10 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ onJoinChallenge, onFollowCreator 
                   >
                     參加挑戰
                   </button>
-                </div>
-              ))}
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
         )}
 
         {/* 趨勢話題 */}
@@ -339,7 +339,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ onJoinChallenge, onFollowCreator 
                 — Steve Jobs
               </div>
             </div>
-          </div>
+        </div>
         )}
       </div>
     </aside>

@@ -34,7 +34,16 @@ const NavBar: React.FC<NavBarProps> = ({
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(searchQuery);
+    e.stopPropagation();
+    if (searchQuery.trim()) {
+      onSearch(searchQuery.trim());
+    }
+  };
+
+  const handleSearchClick = () => {
+    if (searchQuery.trim()) {
+      onSearch(searchQuery.trim());
+    }
   };
 
   const handleProfileSave = () => {
@@ -46,6 +55,17 @@ const NavBar: React.FC<NavBarProps> = ({
     });
     setShowProfileEdit(false);
     setShowUserMenu(false);
+  };
+
+  const closeAllPopups = () => {
+    setShowNotifications(false);
+    setShowUserMenu(false);
+    setShowProfileEdit(false);
+  };
+
+  const handlePageChange = (page: string) => {
+    closeAllPopups();
+    onPageChange(page);
   };
 
   // 本地端圖片選擇
@@ -91,25 +111,36 @@ const NavBar: React.FC<NavBarProps> = ({
         </div>
 
         {/* 搜尋功能 */}
-        <form className="creative-search" onSubmit={handleSearch}>
-          <div className="creative-search-input">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <input
-              type="text"
-              placeholder="搜尋專案、創作者、技能..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </form>
+        <div className="creative-search">
+          <form className="creative-search-form" onSubmit={handleSearch}>
+            <div className="creative-search-input-wrapper">
+              <svg className="creative-search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M17.5 17.5L13.875 13.875M15.8333 9.16667C15.8333 12.8486 12.8486 15.8333 9.16667 15.8333C5.48477 15.8333 2.5 12.8486 2.5 9.16667C2.5 5.48477 5.48477 2.5 9.16667 2.5C12.8486 2.5 15.8333 5.48477 15.8333 9.16667Z" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <input
+                className="creative-search-input"
+                type="text"
+                placeholder="搜尋專案、創作者、技能..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button 
+                type="button"
+                className="creative-search-btn"
+                onClick={handleSearchClick}
+              >
+                搜尋
+              </button>
+            </div>
+          </form>
+        </div>
 
         {/* 主導航連結 */}
         <div className="creative-nav-links">
           <button 
             className={`creative-nav-link ${currentPage === 'explore' ? 'active' : ''}`}
-            onClick={() => onPageChange('explore')}
+            onClick={() => handlePageChange('explore')}
+            type="button"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M3 9L12 2L21 9V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -120,7 +151,8 @@ const NavBar: React.FC<NavBarProps> = ({
 
           <button 
             className={`creative-nav-link ${currentPage === 'projects' ? 'active' : ''}`}
-            onClick={() => onPageChange('projects')}
+            onClick={() => handlePageChange('projects')}
+            type="button"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -134,7 +166,8 @@ const NavBar: React.FC<NavBarProps> = ({
 
           <button 
             className={`creative-nav-link ${currentPage === 'collaborators' ? 'active' : ''}`}
-            onClick={() => onPageChange('collaborators')}
+            onClick={() => handlePageChange('collaborators')}
+            type="button"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -147,7 +180,8 @@ const NavBar: React.FC<NavBarProps> = ({
 
           <button 
             className={`creative-nav-link ${currentPage === 'profile' ? 'active' : ''}`}
-            onClick={() => onPageChange('profile')}
+            onClick={() => handlePageChange('profile')}
+            type="button"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path d="M10 10C12.7614 10 15 7.76142 15 5C15 2.23858 12.7614 0 10 0C7.23858 0 5 2.23858 5 5C5 7.76142 7.23858 10 10 10Z" fill="currentColor" />
@@ -164,6 +198,7 @@ const NavBar: React.FC<NavBarProps> = ({
             <button 
               className={`creative-action-btn ${showNotifications ? 'active' : ''}`}
               onClick={() => setShowNotifications(!showNotifications)}
+              type="button"
             >
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <path d="M16 7C16 5.4087 15.3679 3.88258 14.2426 2.75736C13.1174 1.63214 11.5913 1 10 1C8.4087 1 6.88258 1.63214 5.75736 2.75736C4.63214 3.88258 4 5.4087 4 7C4 14 1 16 1 16H19C19 16 16 14 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -188,7 +223,8 @@ const NavBar: React.FC<NavBarProps> = ({
           {/* 創建按鈕 */}
           <button 
             className="creative-create-btn"
-            onClick={() => onPageChange('create')}
+            onClick={() => handlePageChange('create')}
+            type="button"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path d="M10 4V16M4 10H16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -201,6 +237,7 @@ const NavBar: React.FC<NavBarProps> = ({
             <button 
               className={`creative-user-btn ${showUserMenu ? 'active' : ''}`}
               onClick={() => setShowUserMenu(!showUserMenu)}
+              type="button"
             >
               <img src={currentUser.avatar} alt={currentUser.name} />
             </button>
@@ -217,6 +254,7 @@ const NavBar: React.FC<NavBarProps> = ({
                 <button 
                   className="creative-dropdown-item"
                   onClick={() => setShowProfileEdit(true)}
+                  type="button"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -226,7 +264,8 @@ const NavBar: React.FC<NavBarProps> = ({
                 </button>
                 <button 
                   className="creative-dropdown-item"
-                  onClick={() => onPageChange('profile')}
+                  onClick={() => handlePageChange('profile')}
+                  type="button"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -235,7 +274,7 @@ const NavBar: React.FC<NavBarProps> = ({
                   查看個人檔案
                 </button>
                 <hr className="creative-dropdown-divider" />
-                <button className="creative-dropdown-item">
+                <button className="creative-dropdown-item" type="button">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M9 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     <polyline points="16,17 21,12 16,7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -316,12 +355,14 @@ const NavBar: React.FC<NavBarProps> = ({
               <button 
                 className="creative-btn-secondary"
                 onClick={() => setShowProfileEdit(false)}
+                type="button"
               >
                 取消
               </button>
               <button 
                 className="creative-btn-primary"
                 onClick={handleProfileSave}
+                type="button"
               >
                 儲存
               </button>
