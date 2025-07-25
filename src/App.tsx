@@ -47,7 +47,7 @@ const initialProjects: Project[] = [
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User>(initialUser);
-  const [projects, setProjects] = useState<Project[]>(initialProjects);
+  const [projects] = useState<Project[]>(initialProjects);
   const [currentPage, setCurrentPage] = useState('explore');
   const [selectedCategory, setSelectedCategory] = useState('all');
 

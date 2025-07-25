@@ -26,11 +26,7 @@ const NavBar: React.FC<NavBarProps> = ({
   const [editingBio, setEditingBio] = useState(currentUser.bio);
   const [editingCover, setEditingCover] = useState(currentUser.cover);
 
-  // 新增本地端圖片預覽 state
-  const [avatarFile, setAvatarFile] = useState<File|null>(null);
-  const [coverFile, setCoverFile] = useState<File|null>(null);
-  const [avatarPreview, setAvatarPreview] = useState<string>(editingAvatar);
-  const [coverPreview, setCoverPreview] = useState<string>(editingCover);
+
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,21 +64,7 @@ const NavBar: React.FC<NavBarProps> = ({
     onPageChange(page);
   };
 
-  // 本地端圖片選擇
-  const handleAvatarFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setAvatarFile(file);
-      setAvatarPreview(URL.createObjectURL(file));
-    }
-  };
-  const handleCoverFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setCoverFile(file);
-      setCoverPreview(URL.createObjectURL(file));
-    }
-  };
+
 
   const mockNotifications = [
     { id: 1, message: "新的協作邀請", time: "2分鐘前" },
@@ -319,36 +301,28 @@ const NavBar: React.FC<NavBarProps> = ({
                 <input
                   type="url"
                   value={editingAvatar}
-                  onChange={(e) => {
-                    setEditingAvatar(e.target.value);
-                    setAvatarPreview(e.target.value);
-                    setAvatarFile(null);
-                  }}
+                  onChange={(e) => setEditingAvatar(e.target.value)}
                   placeholder="輸入頭像圖片網址"
                   style={{width:'100%'}}
                 />
-                <input type="file" accept="image/*" onChange={handleAvatarFile} style={{marginTop:'0.5rem'}} />
+
               </div>
               <div className="creative-avatar-preview">
-                <img src={avatarPreview} alt="頭像預覽" style={{width:64,height:64,borderRadius:'50%',objectFit:'cover',border:'2px solid #e2e8f0'}} />
+                <img src={editingAvatar} alt="頭像預覽" style={{width:64,height:64,borderRadius:'50%',objectFit:'cover',border:'2px solid #e2e8f0'}} />
               </div>
               <div className="creative-form-group">
                 <label>背景圖片網址</label>
                 <input
                   type="url"
                   value={editingCover}
-                  onChange={(e) => {
-                    setEditingCover(e.target.value);
-                    setCoverPreview(e.target.value);
-                    setCoverFile(null);
-                  }}
+                  onChange={(e) => setEditingCover(e.target.value)}
                   placeholder="輸入背景圖片網址"
                   style={{width:'100%'}}
                 />
-                <input type="file" accept="image/*" onChange={handleCoverFile} style={{marginTop:'0.5rem'}} />
+
               </div>
               <div className="creative-avatar-preview">
-                <img src={coverPreview} alt="背景圖片預覽" style={{width:'100%',height:'80px',objectFit:'cover',borderRadius:'12px',border:'2px solid #e2e8f0'}} />
+                <img src={editingCover} alt="背景圖片預覽" style={{width:'100%',height:'80px',objectFit:'cover',borderRadius:'12px',border:'2px solid #e2e8f0'}} />
               </div>
             </div>
             <div className="creative-modal-actions">

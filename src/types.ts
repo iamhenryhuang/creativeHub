@@ -1,5 +1,45 @@
 // === 創意協作平台 - 類型定義 ===
 
+// Firebase Auth 相关类型
+export interface AuthUser {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+  emailVerified: boolean;
+}
+
+// 用户注册数据
+export interface UserRegistrationData {
+  email: string;
+  password: string;
+  displayName: string;
+}
+
+// 用户登录数据
+export interface UserLoginData {
+  email: string;
+  password: string;
+}
+
+// Firestore 用户资料
+export interface UserProfile {
+  uid: string;
+  email: string;
+  displayName: string;
+  photoURL?: string;
+  coverURL?: string;
+  bio?: string;
+  skills: string[];
+  location?: string;
+  joinedDate: string;
+  followers: number;
+  following: number;
+  projects: number;
+  isOnline: boolean;
+  lastSeen: string;
+}
+
 export interface User {
   id: number;
   name: string;
